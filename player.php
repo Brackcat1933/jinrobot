@@ -64,7 +64,7 @@ function isAppIos() {
    
     <div class="normalScene">
             <div style="font-size:small">
-                黒毛玉さん(HTML研究)
+                黒毛玉さん(色々確認)
             </div>
 
 
@@ -225,7 +225,7 @@ f.mode = 'post_message';
     <img src="https://clipboardjs.com/assets/images/clippy.svg" width="15px">URL
 </button>
 <input id="copy_text" style="display:none;width:450px"
-value="HTML研究村を作成しました! https://zinro.net/?TYUS #人狼Online"/>
+value="色々確認村を作成しました! https://zinro.net/?8drY #人狼Online"/>
 <script>
 new Clipboard('#copy_btn');
 </script>
@@ -790,8 +790,8 @@ $(document).ready( function() {
 var g_message_json = getLocalMessage();
 
 function getLocalMessage() {
-    var room_id = '189710';
-    if (window.localStorage.getItem('room_id') != '189710') {
+    var room_id = '189761';
+    if (window.localStorage.getItem('room_id') != '189761') {
         window.localStorage.setItem('message', null);
     }
     window.localStorage.setItem('room_id', room_id);
