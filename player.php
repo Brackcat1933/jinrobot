@@ -64,7 +64,7 @@ function isAppIos() {
    
     <div class="normalScene">
             <div style="font-size:small">
-                黒毛玉さん(暁月雑談所[zBxm])
+                黒毛玉さん(HTML研究)
             </div>
 
 
@@ -123,6 +123,13 @@ function countDown() {
     //g_limit_sec--;
     $('#limit_sec').html(g_limit_sec);
     setTimeout("countDown()",1000);
+        if (g_limit_sec <= 0) {
+        location.href = '/m/player.php?mode=updateScene&from=開始前';
+    }
+    1
+    if (g_limit_sec <= 4) {
+        setTimeout("reload()", 6000);
+    }
     }
 </script>
 
@@ -192,8 +199,11 @@ f.mode = 'post_message';
 
 
 <div>
-<a class="btn" onclick="location.href='/m/player.php'" title="更新"><i class="icon-refresh"></i></a>
-      <a class="btn" role="button" data-toggle="modal" onclick="confirmDialog('退室しますか?','確認','/m/player.php?mode=end')" title="終了">退室</a>
+<!-- GM -->
+            <a class="btn" href="/m/player.php?mode=start">開始</a>
+        <a class="btn" onclick="location.href='/m/player.php'" title="更新"><i class="icon-refresh"></i></a>
+  <!-- GM -->
+    <a class="btn" role="button" data-toggle="modal" onclick="confirmDialog('ゲームを終了しますか?','確認','/m/player.php?mode=end')" title="終了">終了</a>
   <a class="btn" onclick="$('#memo').toggle();">メモ</a>
 <div id="memo" style="margin-top:5px;display:none">
   <textarea id="memo_input" rows="8" style="width:90%"></textarea>
@@ -201,19 +211,6 @@ f.mode = 'post_message';
 
 </div>
 
-<!-- RM非表示 -->
-<div style="margin-top:5px;margin-bottom:5px"><center><div><br /><script type="text/javascript">
-  //パラメーター設定
-  var _adf_global = {base: {}};
-  _adf_global.base.ad_id ="588049592e34952b350000c9";
-  _adf_global.base.iframe_width = 468; //iframeの幅
-  _adf_global.base.iframe_height = 60; //iframeの高さ
-  _adf_global.base.reload_span_sec = 120; //リフレッシュ間隔(30～120秒)
-  _adf_global.base.disable_reload = true; //リフレッシュさせたくない時に設定するフラグ
-  _adf_global.base.iframe_style_cssText = "border:none;margin:0 auto;display:block;padding:0;";//iframeのカスタムcss
-</script>
-<script type="text/javascript" src="//d1bqhgjuxdf1ml.cloudfront.net/js/adf_global_base_v1.2.min.js"  charset="UTF-8"></script>
-</div></center></div>
 
 
 <div id="all_players">
@@ -228,7 +225,7 @@ f.mode = 'post_message';
     <img src="https://clipboardjs.com/assets/images/clippy.svg" width="15px">URL
 </button>
 <input id="copy_text" style="display:none;width:450px"
-value="暁月雑談所[zBxm]村を作成しました! https://zinro.net/?sCDl #人狼Online"/>
+value="HTML研究村を作成しました! https://zinro.net/?TYUS #人狼Online"/>
 <script>
 new Clipboard('#copy_btn');
 </script>
@@ -261,12 +258,384 @@ new Clipboard('#copy_btn');
 </tbody>
 </table>
 
+<a href="#roomCommentModal" role="button" class="btn" data-toggle="modal">説明文変更</a><br />
 
 </div>
 
 
 
 
+<div>
+    <h4 class="title">村設定</h4>
+    <form id="changeTeiinForm" action="/m/player.php" method="post">
+    <input type="hidden" name="mode" value="changeTeiin">
+    定員<select name="teiin" onchange="this.form.submit()">
+                <option value="4" >4</option>
+                <option value="5" >5</option>
+                <option value="6" >6</option>
+                <option value="7" >7</option>
+                <option value="8" >8</option>
+                <option value="9" >9</option>
+                <option value="10" >10</option>
+                <option value="11" >11</option>
+                <option value="12" >12</option>
+                <option value="13" >13</option>
+                <option value="14" >14</option>
+                <option value="15" >15</option>
+                <option value="16" >16</option>
+                <option value="17" >17</option>
+                <option value="18" >18</option>
+                <option value="19" >19</option>
+                <option value="20" selected>20</option>
+                <option value="21" >21</option>
+                <option value="22" >22</option>
+                <option value="23" >23</option>
+                <option value="24" >24</option>
+                <option value="25" >25</option>
+                <option value="26" >26</option>
+                <option value="27" >27</option>
+                <option value="28" >28</option>
+                <option value="29" >29</option>
+                <option value="30" >30</option>
+                <option value="31" >31</option>
+                <option value="32" >32</option>
+                <option value="33" >33</option>
+                <option value="34" >34</option>
+                <option value="35" >35</option>
+                <option value="36" >36</option>
+                <option value="37" >37</option>
+                <option value="38" >38</option>
+                <option value="39" >39</option>
+                <option value="40" >40</option>
+                <option value="41" >41</option>
+                <option value="42" >42</option>
+                <option value="43" >43</option>
+                <option value="44" >44</option>
+                <option value="45" >45</option>
+                <option value="46" >46</option>
+                <option value="47" >47</option>
+                <option value="48" >48</option>
+                <option value="49" >49</option>
+                <option value="50" >50</option>
+        
+    </select>人
+    </form>
+
+    <form action="/m/player.php" method="post">
+    <input type="hidden" name="mode" value="setOnenight">
+    <label class="checkbox">
+    <input type="checkbox" name="is_onenight" onclick="this.form.submit()"  />
+    ワンナイト
+    </label>
+    </form>
+    <br />
+
+    <form action="/m/player.php" method="post">
+    <input type="submit" class="btn" value="村設定変更" /> 
+    <input type="hidden" name="mode" value="updateJobset">
+
+    <label class="checkbox">
+    <input type="checkbox" name="friend" >
+    身内限定
+    </label>
+
+    <label class="checkbox">
+    <input type="checkbox" name="shufflename" >
+    プレイヤー名をランダムにする
+    </label>
+    <label class="checkbox">
+    <input type="checkbox" name="yakukakenashi" >
+    役欠けなし(初日犠牲者を村人にする)
+    </label>
+
+                    <table class="table table-striped table-bordered tbl" style="margin:5px">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    役職
+                                </th>
+                                <th>
+                                    人数
+                                </th>
+                            </tr>
+                                <tr>
+                                <td>
+                                    人狼
+                                </td>
+                                <td>
+                                    <select name="job_1" style="width:auto">
+                                        <option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    占い師
+                                </td>
+                                <td>
+                                    <select name="job_4" style="width:auto">
+                                        <option value="0">0</option>
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    狩人
+                                </td>
+                                <td>
+                                    <select name="job_3" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    霊能者
+                                </td>
+                                <td>
+                                    <select name="job_5" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    狂人
+                                </td>
+                                <td>
+                                    <select name="job_6" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    狂信者
+                                </td>
+                                <td>
+                                    <select name="job_7" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    妖狐
+                                </td>
+                                <td>
+                                    <select name="job_8" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    背徳者
+                                </td>
+                                <td>
+                                    <select name="job_9" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    てるてる
+                                </td>
+                                <td>
+                                    <select name="job_16" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    猫又
+                                </td>
+                                <td>
+                                    <select name="job_10" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    共有者
+                                </td>
+                                <td>
+                                    <select name="job_11" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    役人
+                                </td>
+                                <td>
+                                    <select name="job_12" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    怪盗
+                                </td>
+                                <td>
+                                    <select name="job_13" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    狼憑き
+                                </td>
+                                <td>
+                                    <select name="job_14" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                                    <tr>
+                                <td>
+                                    ものまね
+                                </td>
+                                <td>
+                                    <select name="job_15" style="width:auto">
+                                        <option value="0" selected="selected">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+
+                                    </select>
+                                    名
+                                </td>
+                            </tr>
+                            </tbody>
+                    </table>
+
+    <label class="checkbox">
+    <input type="checkbox" name="beginner" >
+    初心者歓迎
+    </label>
+
+    <label class="checkbox">
+    <input type="checkbox" name="no_beginner" >
+    中級以上
+    </label>
+ 
+    <label class="checkbox">
+    <input type="checkbox" name="no_zinro" >
+    雑談系
+    </label>
+ 
+    <label class="checkbox">
+    <input type="checkbox" name="revote" >
+    最多票が同数のとき再投票にする
+    </label>
+
+    </form>
+
+    
+</div>
 
 
 <br />
@@ -323,7 +692,7 @@ new Clipboard('#copy_btn');
             <form method="post" action="/m/player.php">
                 <input type="hidden" name="mode" value="update_room_comment" />
                 <div class="modal-body">
-                    <textarea rows="4" name="comment" style="width:98%">【雑談村】誰でも歓迎の雑談村です。人狼しない/身内村じゃない/下ネタ暴言禁止。KakkyPGの酉は◆PG/.......です偽物注意。村名の[]内は乗っ取り対策のランダム文字列です。暁月雑談所ホームページ：https://akatsukichat.simdif.com</textarea>
+                    <textarea rows="4" name="comment" style="width:98%">不穏ネームあると強制的に部屋落とします。理由は不穏ネームがコンテンツフィルタに引っかかるからですね。</textarea>
                 </div>
                 <div class="modal-footer">
                     <input class="btn btn-primary" type="submit" value="OK"/>
@@ -421,8 +790,8 @@ $(document).ready( function() {
 var g_message_json = getLocalMessage();
 
 function getLocalMessage() {
-    var room_id = '189625';
-    if (window.localStorage.getItem('room_id') != '189625') {
+    var room_id = '189710';
+    if (window.localStorage.getItem('room_id') != '189710') {
         window.localStorage.setItem('message', null);
     }
     window.localStorage.setItem('room_id', room_id);
